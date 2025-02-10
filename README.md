@@ -113,4 +113,4 @@ Hệ thống CRM tập trung vào quản lý công việc, hoạt động giản
 -   **Backend**: Node.js.
 -   **Frontend**: React.js/Refine.
 -   **Database**: PostgreSQL/MongoDB.
--   **Cloud**: xxx
+-   **Cloud**: Cloudinary/VPS
