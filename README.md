@@ -33,9 +33,9 @@ Hệ thống CRM tập trung vào quản lý công việc, hoạt động giản
 ### **3.2. Hoạt động chuyên môn**
 
 -   **Giảng dạy**:
-    -   Quản lý lịch giảng dạy, giáo trình, điểm danh sinh viên.
+    
 -   **Xưởng thực hành**:
-    -   Đăng ký lịch sử dụng xưởng, quản lý thiết bị, báo cáo sự cố.
+    
 
 ---
 
