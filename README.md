@@ -12,9 +12,9 @@ Hệ thống CRM tập trung vào quản lý công việc, hoạt động giản
 
 | Vai trò  | Quyền hạn                                                                 |
 | -------- | ------------------------------------------------------------------------- |
-| **CNBM** | Quản lý toàn bộ bộ môn, duyệt kế hoạch, phân công GV, xem thống kê tổng.  |
-| **TM**   | Quản lý môn học, phân công GV, tạo đề thi, duyệt hoạt động.               |
-| **GV**   | Xem công việc được giao, cập nhật hoạt động, upload tài liệu, tạo đề thi. |
+| **Chủ nhiệm bộ môn (CNBM)** | Quản lý toàn bộ bộ môn, duyệt kế hoạch, duyệt hoạt động, phân công GV, xem thống kê tổng.  |
+| **Trưởng Môn (TM)**   | Quản lý môn học, phân công GV, tạo đề thi.               |
+| **Giảng Viên (GV)**   | Xem công việc được giao, cập nhật hoạt động, upload tài liệu, tạo đề thi. |
 
 ---
 
