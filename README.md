@@ -32,8 +32,12 @@ Hệ thống CRM tập trung vào quản lý công việc, hoạt động giản
 
 ### **3.2. Hoạt động chuyên môn**
 
+<<<<<<< HEAD
 -   **Giảng dạy**:
     
+=======
+-   ## **Giảng dạy**:
+>>>>>>> 8d9f96d (add initial project structure and configuration files)
 -   **Xưởng thực hành**:
     
 
