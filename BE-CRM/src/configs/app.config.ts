@@ -10,15 +10,18 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 export const appConfigFactory: ConfigFactory = () => ({
 	cache: {
 		stores: [
-			createKeyv({
-				socket: {
-					host: env<string>('REDIS_HOST'),
-					port: env<number>('REDIS_PORT', { serialize: (value): number => parseInt(value) }),
-					reconnectStrategy: (retries) => Math.min(retries * 50, 2000),
-					keepAlive: 30000
+			createKeyv(
+				{
+					socket: {
+						host: env<string>('REDIS_HOST'),
+						port: env<number>('REDIS_PORT', { serialize: (value): number => parseInt(value) }),
+						reconnectStrategy: (retries) => Math.min(retries * 50, 2000),
+						keepAlive: 30000
+					},
+					password: env<string>('REDIS_PASSWORD')
 				},
-				password: env<string>('REDIS_PASSWORD')
-			})
+				{ namespace: 'CRM' }
+			)
 		]
 	} as CacheModuleOptions,
 	database: {
@@ -28,7 +31,6 @@ export const appConfigFactory: ConfigFactory = () => ({
 		username: env('POSTGRES_USER'),
 		password: env('POSTGRES_PASSWORD'),
 		database: env('POSTGRES_DB'),
-		schema: 'dbo',
 		entities: [join(__dirname, '**', '*.entity.{ts,js}')],
 		migrations: [join(__dirname, '/migrations/**/*.{ts,js}')],
 		subscribers: [join(__dirname, '**', '*.subscriber.{ts,js}')],

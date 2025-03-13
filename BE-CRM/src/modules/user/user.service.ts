@@ -30,9 +30,9 @@ export class UserService extends BaseAbstractService<UserEntity> {
 
 	async getProfile(id: number): Promise<Partial<UserEntity>> {
 		const user = await this.userRepository
-			.createQueryBuilder('u')
-			.select(['u.id', 'u.email', 'u.display_name', 'u.role'])
-			.where('u.id = :id', { id })
+			.createQueryBuilder()
+			.select(['id', 'email', 'password', 'display_name', 'role'])
+			.where('id = :id', { id })
 			.getRawOne()
 
 		return { ...user, picture: this.generateAvatar({ name: user.display_name }) }

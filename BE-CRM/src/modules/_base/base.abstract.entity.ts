@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
-import { CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
-@Entity()
+@Entity({})
 export abstract class BaseAbstractEntity {
 	@PrimaryGeneratedColumn({ name: 'id', type: 'int' })
 	id: number
@@ -11,4 +11,11 @@ export abstract class BaseAbstractEntity {
 
 	@UpdateDateColumn({ name: 'updated_at', type: 'timestamp', nullable: true })
 	updated_at: Date
+
+	@DeleteDateColumn({ name: 'deleted_at', nullable: true })
+	deleted_at: Date
+
+	constructor(entity?: Partial<BaseAbstractEntity>) {
+		Object.assign(this, entity)
+	}
 }

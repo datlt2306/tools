@@ -10,10 +10,10 @@ export declare global {
 	}
 	interface Pagination<T = unknown> extends PaginationParams {
 		data: Array<T>
-		hasNextPage: boolean
-		hasPrevPage: boolean
-		totalDocs: number
-		totalPages: number
+		has_next_page: boolean
+		has_prev_page: boolean
+		total_rows: number
+		total_pages: number
 	}
 
 	type DatabaseType<T = 'mssql'> = Extract<DataSourceOptions['type'], T>

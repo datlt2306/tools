@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common'
-import { DeepPartial, DeleteResult, FindOptionsWhere, Repository } from 'typeorm'
+import { DeepPartial, DeleteResult, FindManyOptions, FindOptionsWhere, Repository } from 'typeorm'
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity'
 import { BaseAbstractEntity } from './base.abstract.entity'
 import { IBaseService } from './base.service.interface'
+import { PaginationDTO } from './dto/pagination.dto'
 
 @Injectable()
 export abstract class BaseAbstractService<Entity extends BaseAbstractEntity> implements IBaseService<Entity> {
@@ -30,7 +31,38 @@ export abstract class BaseAbstractService<Entity extends BaseAbstractEntity> imp
 		return await this.repository.update(id, partialEntity)
 	}
 
-	async deletOneById(id: number): Promise<DeleteResult> {
+	async deleteOneById(id: number): Promise<DeleteResult> {
 		return await this.repository.delete(id)
+	}
+
+	async softDeleteOneById(id: number): Promise<DeleteResult> {
+		return await this.repository.createQueryBuilder().softDelete().where('id = :id', { id }).execute()
+	}
+
+	async restoreById(id: number): Promise<DeleteResult> {
+		return await this.repository.createQueryBuilder().restore().where('id = :id', { id }).execute()
+	}
+
+	async paginate(
+		condition: FindOptionsWhere<Entity> | FindOptionsWhere<Entity>[],
+		{ page, limit, ...options }: PaginationDTO & Omit<FindManyOptions<Entity>, 'where'>
+	) {
+		const [data, total_rows] = await this.repository.findAndCount({
+			skip: (page - 1) * limit,
+			take: limit,
+			where: condition,
+			...options
+		})
+		const total_pages = Math.ceil(total_rows / limit)
+
+		return {
+			data,
+			total_rows,
+			total_pages,
+			has_next_page: page < total_pages,
+			has_prev_page: page > 1,
+			limit,
+			page
+		} satisfies Pagination<Entity>
 	}
 }

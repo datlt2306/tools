@@ -1,6 +1,6 @@
 import { ZodValidationPipe } from '@/common/pipes'
 import { CACHE_MANAGER } from '@nestjs/cache-manager'
-import { BadRequestException, Inject, Injectable, NotFoundException, UsePipes } from '@nestjs/common'
+import { BadRequestException, Inject, Injectable, Logger, NotFoundException, UsePipes } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Cache } from 'cache-manager'
 import { pick } from 'lodash'
@@ -29,12 +29,15 @@ export class AuthService {
 	async login(payload: UserEntity) {
 		const userId = payload.id
 		const user = await this.userService.getProfile(userId)
+		Logger.debug(user)
 		const token = await this.jwtService.signAsync(pick(user, ['id', 'username', 'employee_code', 'role']))
 		await this.cacheManager.set(`token:${userId}`, token, this.TOKEN_CACHE_TTL)
 		return { user, token }
 	}
 
 	async logout(userId: number) {
+		const userToken = await this.cacheManager.get(`token:${userId}`)
+		Logger.debug(userToken)
 		return await this.cacheManager.del(`token:${userId}`)
 	}
 
