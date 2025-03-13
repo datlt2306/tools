@@ -13,11 +13,6 @@ export const configValidator = z.object({
 		.refine((value) => !isNaN(+value))
 		.transform((value) => +value),
 
-	// * PostgreSQL
-	// POSTGRES_URL: z.string().trim().min(1),
-	PGADMIN_DEFAULT_EMAIL: z.string().trim().min(1),
-	PGADMIN_DEFAULT_PASSWORD: z.string().trim().min(1),
-
 	// * Redis
 	REDIS_HOST: z.string().trim().min(1),
 	REDIS_PORT: z
@@ -26,7 +21,7 @@ export const configValidator = z.object({
 		.min(1)
 		.refine((value) => value === '6379' || !isNaN(+value))
 		.transform((value) => Number(value)),
-	REDIS_PASSWORD: z.string().trim().min(1),
+	// REDIS_PASSWORD: z.string().trim().min(1),
 
 	// * Bcrypt
 	BCRYPT_SALT_ROUNDS: z

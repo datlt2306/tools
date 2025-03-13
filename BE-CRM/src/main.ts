@@ -24,7 +24,7 @@ async function bootstrap() {
 		app.use(
 			morgan('dev', {
 				stream: {
-					write: (str) => requestLogger.log(str.replace(/\n$/, ''), 'HTTP')
+					write: (str) => requestLogger.log(str.replace(/\n$/, ''))
 				}
 			})
 		)
@@ -36,7 +36,7 @@ async function bootstrap() {
 		)
 		await app.listen(+configService.get('PORT'), configService.get('HOST'), async () => {
 			const URL = await app.getUrl()
-			serverLogger.log(URL, 'Server')
+			serverLogger.log(URL)
 		})
 	} catch (error) {
 		serverLogger.error(error)

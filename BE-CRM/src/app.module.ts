@@ -26,6 +26,7 @@ import { UserModule } from './modules/user/user.module'
 		ConfigModule.forRoot({
 			envFilePath: ['.env'],
 			isGlobal: true,
+			cache: true,
 			load: [appConfigFactory],
 			validate: validateConfig
 		}),

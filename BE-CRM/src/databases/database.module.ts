@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm'
-import { DATA_SOURCE, DATABASE_NAME } from './constants'
+import { DATA_SOURCE } from './constants'
 
 @Module({
 	imports: [
@@ -10,10 +10,7 @@ import { DATA_SOURCE, DATABASE_NAME } from './constants'
 			name: DATA_SOURCE,
 			inject: [ConfigService],
 			useFactory: (configService: ConfigService) => {
-				return {
-					database: DATABASE_NAME,
-					...configService.getOrThrow<TypeOrmModuleAsyncOptions>('database')
-				}
+				return configService.getOrThrow<TypeOrmModuleAsyncOptions>('database')
 			}
 		})
 	]

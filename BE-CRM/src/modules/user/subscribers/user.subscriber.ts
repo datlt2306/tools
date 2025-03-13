@@ -1,3 +1,4 @@
+import { env } from '@/common/utils'
 import { ConfigService } from '@nestjs/config'
 import * as bcrypt from 'bcrypt'
 import { EntitySubscriberInterface, EventSubscriber, InsertEvent } from 'typeorm'
@@ -12,6 +13,9 @@ export class UserEntitySubscriber implements EntitySubscriberInterface<UserEntit
 	}
 
 	async beforeInsert(event: InsertEvent<UserEntity>) {
-		event.entity.password = await bcrypt.hash(event.entity.password, +this.configService.get('BCRYPT_SALT_ROUNDS'))
+		event.entity.password = await bcrypt.hash(
+			event.entity.password,
+			env('BCRYPT_SALT_ROUNDS', { serialize: (value) => parseInt(value) })
+		)
 	}
 }
